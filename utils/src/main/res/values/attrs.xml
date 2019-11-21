@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="lj_IndicatorView">
+
+        <attr name="lj_itemCount" format="integer" />
+        <attr name="lj_selectedIndex" format="integer" />
+        <attr name="lj_circleMargin" format="dimension"/>
+
+        <attr name="lj_selectedColor" format="color"/>
+        <attr name="lj_normalColor" format="color"/>
+
+        <attr name="lj_radius" format="dimension"/>
+        <attr name="lj_strokeWidth" format="dimension"/>
+
+        <attr name="lj_unselectedStyle" format="enum">
+            <enum name="strokeAndFill" value="0"/>
+            <enum name="stroke" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="lj_DeleteEditText">
+        <attr name="lj_isShowPasswordDrawable" format="boolean"/>
+        <attr name="lj_isShowDeleteDrawable" format="boolean"/>
+        <attr name="lj_deleteDrawable" format="reference"/>
+        <attr name="lj_showPasswordDrawable" format="reference"/>
+        <attr name="lj_hidePasswordDrawable" format="reference"/>
+    </declare-styleable>
+</resources>

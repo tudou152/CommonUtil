@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -16,6 +18,10 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    dataBinding {
+        enabled = true
+    }
+    resourcePrefix "lj_"
     buildTypes {
         release {
             minifyEnabled false
@@ -23,6 +29,9 @@ android {
         }
     }
 
+}
+kapt {
+    generateStubs = true
 }
 
 dependencies {

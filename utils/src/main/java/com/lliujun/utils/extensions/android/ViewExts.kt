@@ -93,25 +93,12 @@ fun View.animatedToBottom(duration: Long = 250, endAction: (() -> Unit)? = null)
     animatedToY(bottom.toFloat())
 }
 
-fun View.doOnLayout(block: ((View) -> Boolean)) {
-    addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
-        override fun onLayoutChange(
-                view: View, left: Int, top: Int, right: Int, bottom: Int,
-                oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int
-        ) {
-            if (block(view)) {
-                view.removeOnLayoutChangeListener(this)
-            }
-        }
-    })
-}
-
 fun View.donGlobalLayout(block: () -> Unit) {
     viewTreeObserver.apply {
         addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                block()
                 viewTreeObserver.removeOnGlobalLayoutListener(this)
+                block()
             }
         })
     }
