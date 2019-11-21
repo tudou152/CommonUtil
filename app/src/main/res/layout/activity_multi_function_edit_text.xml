@@ -11,16 +11,20 @@
     <com.lliujun.utils.widget.MultiFunctionEditText
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:inputType="textPassword"
         app:lj_isShowPasswordDrawable="true"
         app:lj_isShowDeleteDrawable="true"/>
 
-    <com.lliujun.commonutil.TestEditText
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="textPassword"
-        app:lj_isShowPasswordDrawable="true"
-        app:lj_isShowDeleteDrawable="true"/>
+<!--    <com.lliujun.commonutil.TestEditText-->
+<!--        android:id="@+id/test"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:drawableStart="@drawable/ic_rectangle"-->
+<!--        android:drawableEnd="@drawable/ic_rectangle"-->
+<!--        android:drawableTop="@drawable/ic_rectangle"-->
+<!--        android:drawableBottom="@drawable/ic_rectangle"-->
+<!--        android:drawablePadding="10dp"-->
+<!--        />-->
 </LinearLayout>

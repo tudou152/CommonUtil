@@ -6,16 +6,14 @@ import com.lliujun.utils.extensions.android.isTouchBottomCompoundDrawable
 import com.lliujun.utils.extensions.android.isTouchLeftCompoundDrawable
 import com.lliujun.utils.extensions.android.isTouchRightCompoundDrawable
 import com.lliujun.utils.extensions.android.isTouchTopCompoundDrawable
-import kotlin.math.abs
 
 /**
  * 可以探测在 TextView 中设置 compoundDrawable 之后,drawable 上的点击事件
  * 具体使用方法如下:
  * 1.创建该对象 val detector = CompoundDrawableDetector(textView, listener)
- * 2.在 onToutchEvent 方法中调用
+ * 2.在 onTouchEvent 方法中调用
  *
  * override fun onTouchEvent(event: MotionEvent): Boolean {
- *
  *     return if (compoundDrawableDetector.onTouchEvent(event)) {
  *         true
  *     } else {
@@ -30,16 +28,13 @@ class CompoundDrawableDetector(
 ) {
 
     private var detectedCompoundDrawableClickEvent = false
-
-    init {
-        textView.setOnFocusChangeListener { _, _ ->
-            detectedCompoundDrawableClickEvent = false
-        }
-    }
+    private var handler = android.os.Handler()
 
     fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             detectCompoundDrawableClickEvent(event)
+        } else if (event.action == MotionEvent.ACTION_UP) {
+            handler.postDelayed({ detectedCompoundDrawableClickEvent = false }, 50)
         }
         return detectedCompoundDrawableClickEvent
     }

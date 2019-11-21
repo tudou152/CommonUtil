@@ -14,6 +14,7 @@ import com.lliujun.utils.R
 import com.lliujun.utils.extensions.android.dpToPx
 import com.lliujun.utils.extensions.android.setLeftCompoundDrawable
 import com.lliujun.utils.extensions.android.setRightCompoundDrawable
+import com.lliujun.utils.extensions.android.toast
 import com.lliujun.utils.util.CompoundDrawableDetector
 
 /**
@@ -94,6 +95,14 @@ open class MultiFunctionEditText(context: Context, attrs: AttributeSet) :
             }
             override fun onRightClick() {
                 setText("")
+            }
+
+            override fun onTopClick() {
+                toast("click top")
+            }
+
+            override fun onBottomClick() {
+                toast("click bottom")
             }
         })
     }

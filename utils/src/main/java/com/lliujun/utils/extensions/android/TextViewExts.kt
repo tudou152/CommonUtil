@@ -39,6 +39,9 @@ fun TextView.setBottomCompoundDrawable(drawable: Drawable?) {
             drawable)
 }
 
+/**
+ * 用户输入的文字绘制区域,包含光标
+ * */
 fun TextView.contentRect(): Rect {
     return Rect(
         compoundPaddingLeft,
@@ -61,42 +64,42 @@ fun TextView.isTouchLeftCompoundDrawable(event: MotionEvent): Boolean {
     return rect.contains(event.x, event.y)
 }
 
- fun TextView.isTouchTopCompoundDrawable(event: MotionEvent): Boolean {
-     val drawable = compoundDrawables[0] ?: return false
-     val contentRect = contentRect()
-     val centerX = (contentRect.left + contentRect.right) / 2f
+fun TextView.isTouchTopCompoundDrawable(event: MotionEvent): Boolean {
+    val drawable = compoundDrawables[1] ?: return false
+    val contentRect = contentRect()
+    val centerX = (contentRect.left + contentRect.right) / 2f
 
-     val rect = RectF(
-         centerX - drawable.intrinsicWidth / 2f,
-         (contentRect.top - drawable.intrinsicHeight - compoundDrawablePadding).toFloat(),
-         centerX + drawable.intrinsicWidth / 2f,
-         (contentRect.top - compoundDrawablePadding).toFloat()
-     )
+    val rect = RectF(
+        centerX - drawable.intrinsicWidth / 2f,
+        (contentRect.top - drawable.intrinsicHeight - compoundDrawablePadding).toFloat(),
+        centerX + drawable.intrinsicWidth / 2f,
+        (contentRect.top - compoundDrawablePadding).toFloat()
+    )
 
     return rect.contains(event.x, event.y)
 }
 
- fun TextView.isTouchRightCompoundDrawable(event: MotionEvent): Boolean {
-     val drawable = compoundDrawables[0] ?: return false
-     val contentRect = contentRect()
-     val rect = RectF(
-         (contentRect.right + compoundDrawablePadding).toFloat(),
-         (contentRect.top).toFloat(),
-         (contentRect.right + drawable.intrinsicWidth + compoundDrawablePadding).toFloat(),
-         (contentRect.bottom).toFloat()
-     )
+fun TextView.isTouchRightCompoundDrawable(event: MotionEvent): Boolean {
+    val drawable = compoundDrawables[2] ?: return false
+    val contentRect = contentRect()
+    val rect = RectF(
+        (contentRect.right + compoundDrawablePadding).toFloat(),
+        (contentRect.top).toFloat(),
+        (contentRect.right + drawable.intrinsicWidth + compoundDrawablePadding).toFloat(),
+        (contentRect.bottom).toFloat()
+    )
     return rect.contains(event.x, event.y)
 }
 
- fun TextView.isTouchBottomCompoundDrawable(event: MotionEvent): Boolean {
-     val drawable = compoundDrawables[0] ?: return false
-     val contentRect = contentRect()
-     val centerX = (contentRect.left + contentRect.right) / 2f
-     val rect = RectF(
-         centerX - drawable.intrinsicWidth / 2f,
-         (contentRect.bottom + compoundDrawablePadding).toFloat(),
-         centerX + drawable.intrinsicWidth / 2f,
-         (contentRect.bottom + drawable.intrinsicHeight +  compoundDrawablePadding).toFloat()
-     )
+fun TextView.isTouchBottomCompoundDrawable(event: MotionEvent): Boolean {
+    val drawable = compoundDrawables[3] ?: return false
+    val contentRect = contentRect()
+    val centerX = (contentRect.left + contentRect.right) / 2f
+    val rect = RectF(
+        centerX - drawable.intrinsicWidth / 2f,
+        (contentRect.bottom + compoundDrawablePadding).toFloat(),
+        centerX + drawable.intrinsicWidth / 2f,
+        (contentRect.bottom + drawable.intrinsicHeight +  compoundDrawablePadding).toFloat()
+    )
     return rect.contains(event.x, event.y)
 }
