@@ -37,7 +37,7 @@ fun Context.toast(message: String) {
  * 重新设置 toast 的位置, 都为 0 的时候默认
  * */
 fun Context.toast(message: String, xOffset: Int, yOffset: Int) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).apply {
+    Toast.makeText(this.applicationContext, message, Toast.LENGTH_SHORT).apply {
         setGravity(Gravity.BOTTOM, xOffset, yOffset)
         show()
     }
@@ -47,7 +47,7 @@ fun Context.toast(message: String, xOffset: Int, yOffset: Int) {
  * 在原始 toast 位置的基础之上,进行位置的调整
  * */
 fun Context.toastBy(message: String, dx: Int = 0, dy: Int = 0) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).apply {
+    Toast.makeText(this.applicationContext, message, Toast.LENGTH_SHORT).apply {
         setGravity(Gravity.BOTTOM, xOffset + dx, yOffset + dy)
         show()
     }
