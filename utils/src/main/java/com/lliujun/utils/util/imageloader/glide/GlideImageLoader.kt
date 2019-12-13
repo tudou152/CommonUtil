@@ -1,9 +1,9 @@
 package com.lliujun.utils.util.imageloader.glide
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.PictureDrawable
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -11,26 +11,12 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.lliujun.utils.util.imageloader.ImageLoader
+import java.lang.Exception
 
-class GlideImageLoader : ImageLoader {
-    override fun load(activity: AppCompatActivity, url: String, view: ImageView, config: ImageLoader.Config?) {
-        setup(url, config, Glide.with(activity), view)
-    }
-
-    override fun load(fragment: FragmentActivity, url: String, view: ImageView, config: ImageLoader.Config?) {
-        setup(url, config, Glide.with(fragment), view)
-    }
-
-    override fun load(fragment: Fragment, url: String, view: ImageView, config: ImageLoader.Config?) {
-        setup(url, config, Glide.with(fragment), view)
-    }
-
-    override fun load(context: Context, url: String, view: ImageView, config: ImageLoader.Config?) {
-        setup(url, config, Glide.with(context), view)
-    }
+class GlideImageLoader(override val contextHolder: ImageLoader.ContextHolder) : ImageLoader {
 
     private fun setup(url: String, config: ImageLoader.Config?, requestManager: RequestManager, view: ImageView) {
-        var builder = if (isNetworkImage(url) && url.endsWith(".svg")) {
+        var builder = if (url.endsWith(".svg")) {
             // 处理svg图片
             requestManager
                     .`as`(PictureDrawable::class.java)
@@ -51,5 +37,46 @@ class GlideImageLoader : ImageLoader {
 
     private fun isNetworkImage(url: String): Boolean {
         return url.startsWith("http://") || url.startsWith("https://")
+    }
+
+    override fun load(url: String, target: ImageView, config: ImageLoader.Config?) {
+        val requestManager = when {
+            contextHolder.fragment != null -> {
+                Glide.with(contextHolder.fragment!!)
+            }
+            contextHolder.activity != null -> {
+                Glide.with(contextHolder.activity!!)
+            }
+            contextHolder.fragmentActivity != null -> {
+                Glide.with(contextHolder.fragmentActivity!!)
+            }
+            contextHolder.context != null -> {
+                Glide.with(contextHolder.context!!)
+            }
+            else -> {
+                throw Exception("requestManager can not be null")
+            }
+        }
+
+        setup(url, config, requestManager, target)
+    }
+
+    companion object: ImageLoader.Factory {
+        override fun get(context: Context): ImageLoader {
+            return GlideImageLoader(ImageLoader.ContextHolder(context))
+        }
+
+        override fun get(fragment: Fragment): ImageLoader {
+            return GlideImageLoader(ImageLoader.ContextHolder(fragment))
+
+        }
+
+        override fun get(fragment: FragmentActivity): ImageLoader {
+            return GlideImageLoader(ImageLoader.ContextHolder(fragment))
+        }
+
+        override fun get(activity: Activity): ImageLoader {
+            return GlideImageLoader(ImageLoader.ContextHolder(activity))
+        }
     }
 }
